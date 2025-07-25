@@ -1,0 +1,153 @@
+{
+  "version": "4",
+  "sheet": {
+    "number": 1,
+    "width": 880,
+    "height": 680
+  },
+  "components": [
+    {
+      "id": "comp_1",
+      "type": "res",
+      "x": 128,
+      "y": 96,
+      "rotation": "R90",
+      "attributes": {
+        "name": "R1"
+      }
+    },
+    {
+      "id": "comp_2",
+      "type": "res",
+      "x": 192,
+      "y": 65,
+      "rotation": "R0",
+      "attributes": {
+        "name": "R3"
+      }
+    },
+    {
+      "id": "comp_3",
+      "type": "res",
+      "x": 192,
+      "y": 184,
+      "rotation": "R0",
+      "attributes": {
+        "name": "R5"
+      }
+    },
+    {
+      "id": "comp_4",
+      "type": "voltage",
+      "x": 48,
+      "y": 90,
+      "rotation": "R0",
+      "attributes": {
+        "name": "V1"
+      }
+    },
+    {
+      "id": "comp_5",
+      "type": "cap",
+      "x": 184,
+      "y": 96,
+      "rotation": "R90",
+      "attributes": {
+        "name": "C1"
+      }
+    },
+    {
+      "id": "comp_6",
+      "type": "cap",
+      "x": 192,
+      "y": 123,
+      "rotation": "R0",
+      "attributes": {
+        "name": "C3"
+      }
+    },
+    {
+      "id": "comp_7",
+      "type": "cap",
+      "x": 267,
+      "y": 240,
+      "rotation": "R90",
+      "attributes": {
+        "name": "C5"
+      }
+    },
+    {
+      "id": "comp_8",
+      "type": "cap",
+      "x": 304,
+      "y": 80,
+      "rotation": "R0",
+      "attributes": {
+        "name": "C6"
+      }
+    }
+  ],
+  "wires": [
+    {
+      "x1": 48,
+      "y1": 256,
+      "x2": 320,
+      "y2": 256
+    },
+    {
+      "x1": 208,
+      "y1": 256,
+      "x2": 320,
+      "y2": 256
+    },
+    {
+      "x1": 320,
+      "y1": 0,
+      "x2": 320,
+      "y2": 256
+    },
+    {
+      "x1": 48,
+      "y1": 112,
+      "x2": 48,
+      "y2": 256
+    },
+    {
+      "x1": 48,
+      "y1": 256,
+      "x2": 208,
+      "y2": 256
+    },
+    {
+      "x1": 48,
+      "y1": 112,
+      "x2": 208,
+      "y2": 112
+    },
+    {
+      "x1": 208,
+      "y1": 112,
+      "x2": 208,
+      "y2": 256
+    },
+    {
+      "x1": 208,
+      "y1": 0,
+      "x2": 208,
+      "y2": 112
+    },
+    {
+      "x1": 208,
+      "y1": 0,
+      "x2": 208,
+      "y2": 256
+    },
+    {
+      "x1": 208,
+      "y1": 0,
+      "x2": 320,
+      "y2": 0
+    }
+  ],
+  "flags": []
+}

@@ -44,18 +44,17 @@ class Wire:
         else:
             return 2
     # failed attempt to straighten the wires
+
     def straighten_wires(self):
         # straigthens the wire
         if self.orientation == "h":
             self.y_end = self.y_start
-
         elif self.orientation == "v":
             self.x_end = self.x_start
 
 
-tk.Tk().withdraw()
-print("Choose an image.")
-filename = askopenfilename()
+# Hard code the image path
+filename = "raw_img.jpg"
 # model import
 model = torch.hub.load("yolov5-master", 'custom',
                        path="best_weights.pt", source='local', force_reload=True)  # local repo
