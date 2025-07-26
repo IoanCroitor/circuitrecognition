@@ -1,41 +1,126 @@
-# Circuit Recognition
+# Circuit Recognition API
+
+This API provides endpoints for converting LTspice ASC files to JSON format and processing images of hand-drawn circuits.
+
+## Features
+
+- Convert LTspice ASC files to JSON format
+- Parse ASC files to structured data
+- API key authentication for all endpoints
+- Docker support for easy deployment
 
 ## Prerequisites
 
-Clone the repository and install *requirements.txt* in a **Python>=3.7.0** environment, including **PyTorch>=1.7**, [found here](https://pytorch.org/get-started/locally/)
-```python
-git clone https://github.com/mputak/circuitrecognition.git
-pip install -r yolov5-master/requirements.txt
-```
+- Python 3.9+
+- Required Python packages (see pyproject.toml)
+
+## Installation
+
+1. Clone the repository
+2. Install the required packages:
+   ```bash
+   pip install -e .
+   ```
 
 ## Usage
 
-To use the Circuit Recognition:
-1. Run the `beta_version.py`
-2. Choose an image you wish to digitize from the file explorer
-3. Enjoy your **digitized circuit** in the project repository under name `ltspice_final.asc`
+### Running the API locally
 
-From here the file can be opened with LTspice and the circuit can be instantly simulated or modified.
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
 
-## Methodology
-- Dataset with images of hand-drawn electrical circuits was used to train a CNN model [YOLOv5-m](https://github.com/ultralytics/yolov5)
-- The model was pre-trained on COCO dataset and fully trained on CHGD-1152 dataset with positive [results](https://api.wandb.ai/links/circuitrecognition/agtiplrz)
-- The new image of hand-drawn circuit serves as input to a trained model
-- Model inference is sent to necessary processing steps in order to obey LTspice netlist syntax
-    - Verical/Horizontal wire alignment, junction finder, grid relocator, etc.
-- Output is written to a file that is readable by LTspice and ready for simulation through the software.
+### Running with Docker
 
-## Example
-![Input image](/imgs/raw_img.jpg "Input image.") &#x27F6; ![Output](/imgs/end_img.png "Output LTspice file.") 
+```bash
+docker-compose up --build
+```
 
-## FAQ
+## API Endpoints
 
-*I'm getting an error during inference.*
-- Add `force_reload=True` to the `torch.hub.load` as a parameter. (Note: Only needed once.)
+### Authentication
 
-*When will the newer version be ready?*
-- Due November 2023.
-- It will be able to recognize substantionally more electrical elements and have improved data processing (faster and more accurate).
+All endpoints require an API key in the `X-API-Key` header.
 
----
-For any further question, do not hesitate to contact me.
+Test API keys:
+- `test-key-123` - Basic user access
+- `admin-key-456` - Admin access
+
+### ASC Parsing
+
+#### Convert ASC to JSON
+
+- **Endpoint**: `POST /api/v1/asc-to-json/convert`
+- **Description**: Convert an LTspice ASC file to JSON format
+- **Request**: Form data with file upload (`file`: ASC file to convert)
+- **Response**: JSON representation of the circuit
+
+#### Parse ASC File
+
+- **Endpoint**: `POST /api/v1/asc-to-json/parse`
+- **Description**: Parse an ASC file and return structured data
+- **Request**: Form data with file upload (`file`: ASC file to parse)
+- **Response**: Structured circuit data
+
+### Health Check
+
+#### API Health Check
+
+- **Endpoint**: `GET /api/v1/health`
+- **Description**: Check if the API is running
+- **Response**: `{"status": "healthy"}`
+
+## Project Structure
+
+```
+circuit_api/
+├── app/
+│   ├── __init__.py
+│   ├── main.py                 # FastAPI application entry point
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── v1/
+│   │   │   ├── __init__.py
+│   │   │   ├── routes/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── asc_parsing.py
+│   │   │   │   └── health.py
+│   │   │   ├── schemas/
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── circuit.py
+│   │   │   └── dependencies.py  # Authentication dependency
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py           # Configuration settings
+│   │   └── logging.py          # Logging configuration
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── asc_parser.py       # ASC parsing service
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── api_key.py          # API key model
+├── tests/
+├── Dockerfile
+├── docker-compose.yml
+├── pyproject.toml
+└── README.md
+```
+
+## Development
+
+### Running Tests
+
+```bash
+pytest
+```
+
+### API Documentation
+
+Once the API is running, you can access the automatic documentation:
+
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+## License
+
+MIT
